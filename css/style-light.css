@@ -1,0 +1,41 @@
+/**
+ * Light AWR stylesheet
+ */
+
+@define-color bg_color #fff;
+@define-color hc_color #222;
+@define-color lc_color #eee;
+@define-color txt_color #333;
+@define-color evidence_color #ff3300;
+@define-color hover_color #428BCA;
+@define-color btn_color #428BCA;
+@define-color notebook_color #f1f1f1;
+
+* {
+  color: @txt_color;
+}
+#main_window {
+  /*background: -gtk-gradient(linear, center top, center bottom, color-stop(0, darker(@bg_color)), color-stop(0.05, @bg_color), color-stop(0.95, @bg_color), color-stop(1, darker(@bg_color)));*/
+  background: -gtk-gradient(radial, center center, 0, center center, 1, from(lighter(@bg_color)), to(shade(@bg_color, 0.7)) );
+}
+GtkButton {
+  background: @btn_color;
+  border: 1px solid darker(@btn_color);
+}
+.button-img {
+  background: transparent;
+  border: 1px solid @lc_color;
+}
+.button-img:hover, .button-selected {
+  background: @hover_color;
+}
+.button-disabled {
+  background: transparent;
+  border-width: 0;
+}
+GtkNotebook {
+  background: @notebook_color;
+}
+GtkNotebook tab GtkLabel {
+  font: Sans 12;
+}

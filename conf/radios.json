@@ -1,0 +1,71 @@
+{
+  "genres": [
+    {
+      "name": "Mix",
+      "radios": [
+        {
+          "name": "Radio Paradise",
+          "url": "http://stream-uk1.radioparadise.com/mp3-128",
+          "description": "Blend of many styles and genres of music, carefully selected and mixed by two real human beings. You'll hear modern and classic rock, world music, electronica, even a bit of classical and jazz.",
+          "img": "img/radio_paradise.png",
+          "playlist": false
+        },
+        {
+          "name": "Radio Gibson",
+          "url": "http://ascolta.radiogibson.net/radiogibson.m3u",
+          "description": "Italian no-profit web radio, all genres.",
+          "img": "img/radiogibson.png",
+          "playlist": true
+        }
+      ]
+    },
+    {
+      "name": "Rock",
+      "radios": [
+        {
+          "name": "Rockradio Classic",
+          "url": "http://listen.rockradio.com/public3/classicrock.pls",
+          "description": "Selection of classic rock music.",
+          "img": "img/rockradio.png",
+          "playlist": true
+        }
+      ]
+    },
+    {
+      "name": "Jazz",
+      "radios": [
+        {
+          "name": "Radio Swiss Jazz",
+          "url": "http://www.radioswissjazz.ch/live/aacp.m3u",
+          "description": "The SRG SSR jazz radio, with JAZZ, SOUL and BLUES 24/7",
+          "img": "img/radioswissjazz.png",
+          "playlist": true
+        }
+      ]
+    },
+    {
+      "name": "Live",
+      "radios": [
+        {
+          "name": "KEXP",
+          "url": "http://live-mp3-128.kexp.org:8000/listen.pls",
+          "description": "KEXP is more than a radio station. KEXP is a dynamic arts organization that provides rich music experiences on the air, online, and on the streets.",
+          "img": "img/kexp.png",
+          "playlist": false
+        }
+      ]
+    },
+    {
+      "name": "Antagonism",
+      "radios": [
+        {
+          "name": "Radio Blackout",
+          "url": "http://stream.radioblackout.org/blackout.mp3",
+          "description": "One station against the nation",
+          "img": "img/radioblackout.png",
+          "playlist": false
+        }
+      ]
+    }
+  ]
+}
