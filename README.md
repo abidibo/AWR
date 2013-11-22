@@ -18,6 +18,7 @@ AWR was developed using the pygtk3 technology, no glade was armed in the making 
 Just download the project and run awr.py.
 
 You may use git
+
     git clone https://github.com/abidibo/AWR.git ./
     cd AWR.git
     python awr.py
