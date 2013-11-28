@@ -16,8 +16,12 @@ import re
 import json
 from xml.sax.saxutils import escape
 from time import sleep
+from os import path
 
 from agtk import MainWindow
+
+def project_path(relative_path):
+    return path.abspath(path.join(path.dirname(__file__), relative_path))
 
 # without this line threads are executed after the main loop
 GObject.threads_init()
@@ -48,7 +52,7 @@ class AWRGUI:
 
     # style
     self.style_provider = Gtk.CssProvider()
-    self.style_provider.load_from_path('./css/style-%s.css' % self._style)
+    self.style_provider.load_from_path(project_path('css/style-%s.css' % self._style))
     screen = Gdk.Screen.get_default()
     styleContext = Gtk.StyleContext()
     styleContext.add_provider_for_screen(screen, self.style_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
@@ -141,7 +145,7 @@ class AWRGUI:
     @brief Creates the genres notebook
   """
   def create_notebook(self):
-    json_data = open('./conf/radios.json')
+    json_data = open(project_path('conf/radios.json'))
     data = json.load(json_data)
     notebook = Gtk.Notebook()
     self._container.pack_start(notebook, False, False, 0)
@@ -159,7 +163,7 @@ class AWRGUI:
     grid = Gtk.Grid(row_spacing=10, margin=10)
     i = 0
     for radio in genre['radios']:
-      img_button = Gtk.Button(image=Gtk.Image.new_from_file(radio['img']))
+      img_button = Gtk.Button(image=Gtk.Image.new_from_file(project_path(radio['img'])))
       img_button.get_style_context().add_class("button-img");
       img_button.set_vexpand(False)
       img_button.connect('clicked', self._app.stream_radio, radio)
@@ -177,7 +181,7 @@ class AWRGUI:
   """
   def create_footer(self):
     abidibo_container = Gtk.EventBox()
-    abidibo = Gtk.Image.new_from_file('abidibo.png')
+    abidibo = Gtk.Image.new_from_file(project_path('abidibo.png'))
     abidibo.set_property('xalign', 1)
     abidibo_container.add(abidibo)
     abidibo_container.connect('button_press_event', self.toggle_style)
