@@ -7,7 +7,7 @@
 
   @author abidibo (Stefano Contini) <dev@abidibo.net>
   @license MIT License (http://opensource.org/licenses/MIT)
-  @date 2013
+  @copyright 2013-2014 abidibo
 """
 from gi.repository import Gtk, Gdk, GObject
 import subprocess
@@ -40,7 +40,7 @@ class AWRGUI:
     self._style = 'light';
     # main window
     self._win = MainWindow('main_window', 'AWR', self._app.kill_proc)
-    self._win.set_resizable(False)
+    self._win.set_resizable(True)
     # main container
     self.create_container()
     # track and controllers
@@ -276,7 +276,6 @@ class AWR:
     # if stdout stops without pressing the stop button then an error occurred
     if error:
       GObject.idle_add(self.display_info)
-    self.kill_proc()
 
   """
     @brief Stops the stream

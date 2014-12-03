@@ -51,7 +51,7 @@
           "url": "http://live-mp3-128.kexp.org:8000/listen.pls",
           "description": "KEXP is more than a radio station. KEXP is a dynamic arts organization that provides rich music experiences on the air, online, and on the streets.",
           "img": "img/kexp.png",
-          "playlist": false
+          "playlist": true
         }
       ]
     },
