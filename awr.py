@@ -40,7 +40,7 @@ class AWRGUI:
     self._style = 'light';
     # main window
     self._win = MainWindow('main_window', 'AWR', self._app.kill_proc)
-    self._win.set_resizable(False)
+    self._win.set_resizable(True)
     # main container
     self.create_container()
     # track and controllers

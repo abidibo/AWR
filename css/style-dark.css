@@ -39,6 +39,9 @@ GtkNotebook {
 GtkNotebook tab GtkLabel {
   font: Sans 12;
 }
+GtkMessageDialog * {
+  color: #000;
+}
 .evidence {
   color: @evidence_color;
 }
