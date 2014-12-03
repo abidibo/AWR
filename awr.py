@@ -276,7 +276,6 @@ class AWR:
     # if stdout stops without pressing the stop button then an error occurred
     if error:
       GObject.idle_add(self.display_info)
-    self.kill_proc()
 
   """
     @brief Stops the stream
