@@ -1,3 +1,11 @@
 # Changelog
 
+2014-12-03 New release, v0.1.1
+    FIXES
+    - fixed text color in the gtk dialog for the dark theme
+    - fixed a new error which occurs when double clicking the station icon
+    FEATURES
+    - added icon
+    - added support for window resizing
+
 2013-11-22 First stable release, v0.1.0

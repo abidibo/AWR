@@ -7,7 +7,7 @@
 
   @author abidibo (Stefano Contini) <dev@abidibo.net>
   @license MIT License (http://opensource.org/licenses/MIT)
-  @date 2013
+  @copyright 2013-2014 abidibo
 """
 from gi.repository import Gtk, Gdk, GObject
 import subprocess
