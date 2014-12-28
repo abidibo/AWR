@@ -9,7 +9,7 @@
   @license MIT License (http://opensource.org/licenses/MIT)
   @copyright 2013-2014 abidibo
 """
-from gi.repository import Gtk, Gdk, GObject
+from gi.repository import Gtk, Gdk, GObject, Notify
 import subprocess
 from threading import Thread
 import re
@@ -38,6 +38,7 @@ class AWRGUI:
     self._app = app
     self._active_radio = None
     self._style = 'light';
+    self._visible = True
     # main window
     self._win = MainWindow('main_window', 'AWR', self._app.kill_proc)
     self._win.set_resizable(True)
@@ -56,6 +57,16 @@ class AWRGUI:
     screen = Gdk.Screen.get_default()
     styleContext = Gtk.StyleContext()
     styleContext.add_provider_for_screen(screen, self.style_provider, Gtk.STYLE_PROVIDER_PRIORITY_USER)
+
+    self.status_icon = Gtk.StatusIcon()
+    self.status_icon.set_from_stock(Gtk.STOCK_QUIT)
+
+    def right_click_event_statusicon(*args):
+        self._visible = not self._visible
+        self._win.set_visible(self._visible)
+
+    self.status_icon.connect('button-press-event', right_click_event_statusicon)
+
 
     self._win.show_all()
 
@@ -254,6 +265,7 @@ class AWR:
     thread = Thread(target = self.parse_stdout, )
     thread.start()
 
+    self.notify('radio started', '???')
     self._gui.set_active_radio(widget)
 
   """
@@ -324,6 +336,16 @@ class AWR:
             "An error occured while streaming audio data. Check your internet connection.")
     dialog.run()
     dialog.destroy()
+
+  def notify(self, title, message):
+    Notify.init('My Application Name')
+    notification = Notify.Notification.new(
+            title,
+            message,
+            'dialog-information'
+        )
+    notification.show()
+
 
   def main(self):
     Gtk.main()
