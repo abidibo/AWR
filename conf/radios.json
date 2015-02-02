@@ -11,6 +11,20 @@
           "playlist": false
         },
         {
+          "name": "Irish Pub Radio",
+          "url": "http://www.irishpubradio.com/streams1/listen.pls",
+          "description": "Irish Pub Radio is a free service to the many thousands of Irish Pubs located around the world, that would like to have a huge mixture of Irish music to play in their pub. It comes live from the heart of Ireland, transmitted digitally via the internet in cd quality to your pub.",
+          "img": "img/irishpubradio.png",
+          "playlist": true
+        },
+        {
+          "name": "JukeBox.66",
+          "url": "http://listen.radionomy.com/jukebox66.m3u",
+          "description": "Jukebox66 est la radio des années 50, 60 et 70. Notre programmation basée sur du rock'n'roll/blues/soul/country/folk/surf/jazz ... est dans la plus pure ambiance American Graffitti et Route 66 ! De Chuck Berry aux Stray Cats, de Hot Tuna à Stevie Ray Vaughan, Jukebox66 dynamise vos journées!",
+          "img": "img/jukebox66.png",
+          "playlist": true
+        },
+        {
           "name": "Radio Gibson",
           "url": "http://ascolta.radiogibson.net/radiogibson.m3u",
           "description": "Italian no-profit web radio, all genres.",
@@ -63,6 +77,18 @@
           "url": "http://stream.radioblackout.org/blackout.mp3",
           "description": "One station against the nation",
           "img": "img/radioblackout.png",
+          "playlist": false
+        }
+      ]
+    },
+    {
+      "name": "Italì",
+      "radios": [
+        {
+          "name": "Radio 2",
+          "url": "http://icestreaming.rai.it/2.mp3",
+          "description": "Seconda rete radiofonica della RAI",
+          "img": "img/radio2.png",
           "playlist": false
         }
       ]
