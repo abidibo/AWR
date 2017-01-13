@@ -44,5 +44,6 @@ Click the abidibo avatar to toggle between light and dark themes.
 
 ## Releases
 
+- 2017-01-13 v0.1.2
 - 2014-12-03 v0.1.1
 - 2013-11-22 v0.1.0
