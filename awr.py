@@ -9,6 +9,8 @@
   @license MIT License (http://opensource.org/licenses/MIT)
   @copyright 2013-2014 abidibo
 """
+import gi
+gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
 import subprocess
 from threading import Thread
@@ -215,7 +217,7 @@ class AWRGUI:
   """
   def toggle_style(self, widget, event):
     self._style = 'dark' if self._style == 'light' else 'light'
-    self.style_provider.load_from_path('./css/style-%s.css' % self._style)
+    self.style_provider.load_from_path(project_path('css/style-%s.css' % self._style))
 
 
 """
@@ -271,7 +273,8 @@ class AWR:
         attrs = dict(re.findall("(\w+)='([^']*)'", info))
         title = attrs.get('StreamTitle', '(unknown)')
         self._status = 'playing'
-        self._gui.update('<b>%s</b>' % escape(title))
+        # fixes seg fault when updating gui from inside another thread
+        GObject.timeout_add(100, self._gui.update, '<b>%s</b>' % escape(title))
 
     # if stdout stops without pressing the stop button then an error occurred
     if error:
