@@ -1,5 +1,11 @@
 # Changelog
 
+2017-01-13 New release, v0.1.2
+    FIXES
+    - segment fault when updating gui inside mplayer thread (after system update)
+    FEATURES
+    - new default conf radios
+
 2014-12-03 New release, v0.1.1
     FIXES
     - fixed text color in the gtk dialog for the dark theme
