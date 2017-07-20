@@ -39,10 +39,13 @@ class AWRGUI:
   def __init__(self, app):
     self._app = app
     self._active_radio = None
-    self._style = 'light';
+    self._style = 'dark';
     # main window
     self._win = MainWindow('main_window', 'AWR', self._app.kill_proc)
     self._win.set_resizable(True)
+    # geometry = Gdk.Geometry()
+    # geometry.min_height = 100
+    # self._win.set_geometry_hints(None, geometry, Gdk.WindowHints.MIN_SIZE)
     # main container
     self.create_container()
     # track and controllers

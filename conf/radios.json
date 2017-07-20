@@ -30,6 +30,13 @@
           "description": "Italian no-profit web radio, all genres.",
           "img": "img/radiogibson.png",
           "playlist": true
+        },
+        {
+          "name": "Play Emotions",
+          "url": "http://5.39.82.157:8054/listen.pls",
+          "description": "Lounge, chillout, ambient. Perfect for relaxing.",
+          "img": "img/play_emotions.png",
+          "playlist": false
         }
       ]
     },

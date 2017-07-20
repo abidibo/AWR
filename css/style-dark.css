@@ -18,7 +18,7 @@
   /*background: -gtk-gradient(linear, center top, center bottom, color-stop(0, darker(@bg_color)), color-stop(0.05, @bg_color), color-stop(0.95, @bg_color), color-stop(1, darker(@bg_color)));*/
   background: -gtk-gradient(radial, center center, 0, center center, 1, from(lighter(@bg_color)), to(shade(@bg_color, 0.7)) );
 }
-GtkButton {
+button {
   background: @btn_color;
   border: 1px solid darker(@btn_color);
 }
@@ -33,14 +33,13 @@ GtkButton {
   background: transparent;
   border-width: 0;
 }
-GtkNotebook {
+notebook header,
+notebook tab,
+notebook stack {
   background: @notebook_color;
 }
-GtkNotebook tab GtkLabel {
+notebook tab label {
   font: Sans 12;
-}
-GtkMessageDialog * {
-  color: #000;
 }
 .evidence {
   color: @evidence_color;
