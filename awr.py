@@ -271,6 +271,9 @@ class AWR:
       if self._status == 'stopped':
         error = False
         break
+      if str_line.startswith('Starting playback'):
+        self._status = 'playing'
+        GObject.timeout_add(50, self._gui.update)
       if str_line.startswith('ICY Info:'):
         info = str_line.split(':', 1)[1].strip()
         attrs = dict(re.findall("(\w+)='([^']*)'", info))
