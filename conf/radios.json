@@ -82,6 +82,18 @@
       ]
     },
     {
+      "name": "Classical",
+      "radios": [
+        {
+          "name": "Venice Classic Radio Italia",
+          "url": "http://174.36.206.197:8000/listen.pls",
+          "description": "Seconda rete radiofonica della RAI",
+          "img": "img/venice-classic.png",
+          "playlist": true
+        }
+      ]
+    },
+    {
       "name": "Italì",
       "radios": [
         {
