@@ -34,10 +34,9 @@ button {
   border-width: 0;
 }
 notebook header,
-notebook tab,
 notebook stack {
   background: @notebook_color;
 }
-notebook tab label {
-  font: Sans 12;
+.evidence {
+  color: @evidence_color;
 }

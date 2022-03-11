@@ -6,7 +6,6 @@
 @define-color hc_color #e7e7e7;
 @define-color lc_color #666;
 @define-color txt_color #eee;
-@define-color evidence_color #ffff00;
 @define-color hover_color #aa0000;
 @define-color btn_color #aa0000;
 @define-color notebook_color #444;
@@ -34,13 +33,6 @@ button {
   border-width: 0;
 }
 notebook header,
-notebook tab,
 notebook stack {
   background: @notebook_color;
-}
-notebook tab label {
-  font: Sans 12;
-}
-.evidence {
-  color: @evidence_color;
 }
