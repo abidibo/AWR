@@ -267,7 +267,7 @@ class AWR:
   def parse_stdout(self):
     error = True
     for line in iter(self._proc.stdout.readline, ''):
-      str_line = str(line).rstrip()
+      str_line = str(line.decode('utf-8')).rstrip()
       if self._status == 'stopped':
         error = False
         break
@@ -289,7 +289,7 @@ class AWR:
   """
   def stop_stream(self, widget):
     if self._proc:
-      self._proc.stdin.write('stop\n')
+      self._proc.communicate(b'stop\n')
       self._status = 'stopped'
       self._gui.update()
 
@@ -300,7 +300,7 @@ class AWR:
   def playpause_stream(self, widget):
     if self._proc:
       try:
-        self._proc.stdin.write('pause\n')
+        self._proc.communicate(b'\npause\n')
         self._status = 'playing' if self._status == 'paused' else 'paused'
         self._gui.update()
       except:
@@ -314,7 +314,7 @@ class AWR:
     self._gui.update()
     if self._proc:
       try:
-        self._proc.stdin.write('quit\n')
+        self._proc.communicate(b'quit\n')
       except:
         pass
       sleep(1) # wait for thread to break
