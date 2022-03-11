@@ -11,13 +11,6 @@
           "playlist": false
         },
         {
-          "name": "Irish Pub Radio",
-          "url": "http://www.irishpubradio.com/streams1/listen.pls",
-          "description": "Irish Pub Radio is a free service to the many thousands of Irish Pubs located around the world, that would like to have a huge mixture of Irish music to play in their pub. It comes live from the heart of Ireland, transmitted digitally via the internet in cd quality to your pub.",
-          "img": "img/irishpubradio.png",
-          "playlist": true
-        },
-        {
           "name": "JukeBox.66",
           "url": "http://listen.radionomy.com/jukebox66.m3u",
           "description": "Jukebox66 est la radio des années 50, 60 et 70. Notre programmation basée sur du rock'n'roll/blues/soul/country/folk/surf/jazz ... est dans la plus pure ambiance American Graffitti et Route 66 ! De Chuck Berry aux Stray Cats, de Hot Tuna à Stevie Ray Vaughan, Jukebox66 dynamise vos journées!",
@@ -44,10 +37,10 @@
       "name": "Rock",
       "radios": [
         {
-          "name": "Rockradio Classic",
-          "url": "http://listen.rockradio.com/public3/classicrock.pls",
+          "name": "Classic Rock Florida HD",
+          "url": "http://us4.internet-radio.com:8258/listen.pls",
           "description": "Selection of classic rock music.",
-          "img": "img/rockradio.png",
+          "img": "img/classic-rock-florida.png",
           "playlist": true
         }
       ]
@@ -56,11 +49,11 @@
       "name": "Jazz",
       "radios": [
         {
-          "name": "Radio Swiss Jazz",
-          "url": "http://www.radioswissjazz.ch/live/aacp.m3u",
+          "name": "Jazz Lovers",
+          "url": "http://kathy.torontocast.com:3530/stream",
           "description": "The SRG SSR jazz radio, with JAZZ, SOUL and BLUES 24/7",
-          "img": "img/radioswissjazz.png",
-          "playlist": true
+          "img": "img/jazzlovers.png",
+          "playlist": false
         }
       ]
     },
@@ -81,7 +74,7 @@
       "radios": [
         {
           "name": "Radio Blackout",
-          "url": "http://stream.radioblackout.org/blackout.mp3",
+          "url": "https://s.streampunk.cc/blackout.mp3",
           "description": "One station against the nation",
           "img": "img/radioblackout.png",
           "playlist": false
