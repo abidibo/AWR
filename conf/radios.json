@@ -54,6 +54,13 @@
           "description": "The SRG SSR jazz radio, with JAZZ, SOUL and BLUES 24/7",
           "img": "img/jazzlovers.png",
           "playlist": false
+        },
+        {
+          "name": "Radio Estilo Leblon",
+          "url": "http://us4.internet-radio.com:8193/listen.pls",
+          "description": "First class soft music!",
+          "img": "img/estilo-leblon.png",
+          "playlist": true
         }
       ]
     },
