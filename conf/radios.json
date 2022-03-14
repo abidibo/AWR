@@ -87,7 +87,7 @@
         {
           "name": "Venice Classic Radio Italia",
           "url": "http://174.36.206.197:8000/listen.pls",
-          "description": "Seconda rete radiofonica della RAI",
+          "description": "Webradio digitale italiana di musica classica che propone ogni giorno un repertorio di musica antica, barocca, da camera, sinfonica, lirica e contemporanea",
           "img": "img/venice-classic.png",
           "playlist": true
         }
