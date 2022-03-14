@@ -164,7 +164,6 @@ class AWRGUI:
     @brief Creates a genre page
   """
   def construct_genre_page(self, genre):
-    num_radios = len(genre['radios'])
     grid = Gtk.Grid(row_spacing=10, margin=10)
     i = 0
     for radio in genre['radios']:

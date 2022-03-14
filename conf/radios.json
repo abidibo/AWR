@@ -25,22 +25,48 @@
           "playlist": true
         },
         {
-          "name": "Play Emotions",
-          "url": "http://5.39.82.157:8054/listen.pls",
-          "description": "Lounge, chillout, ambient. Perfect for relaxing.",
-          "img": "img/play_emotions.png",
+          "name": "Box UK",
+          "url": "http://uk7.internet-radio.com:8226/live.m3u",
+          "description": "Box UK Radio plays the best mix of then and now. We play 80's, 90's, 00's and current chart music and we are also home of 80s Thursday.",
+          "img": "img/box-uk.png",
           "playlist": true
         }
       ]
     },
     {
-      "name": "Rock",
+      "name": "Rock&Blues",
       "radios": [
         {
           "name": "Classic Rock Florida HD",
           "url": "http://us4.internet-radio.com:8258/listen.pls",
           "description": "Selection of classic rock music.",
           "img": "img/classic-rock-florida.png",
+          "playlist": true
+        },
+        {
+          "name": "XRDS.fm",
+          "url": "http://us1.internet-radio.com:8321/listen.pls",
+          "description": "Blues, Roots and American music from The Crossroads, in Clarksdale, Mississippi.",
+          "img": "img/xrds.png",
+          "playlist": true
+        }
+      ]
+    },
+    {
+      "name": "Chill",
+      "radios": [
+        {
+          "name": "Play Emotions",
+          "url": "http://5.39.82.157:8054/listen.pls",
+          "description": "Lounge, chillout, ambient. Perfect for relaxing.",
+          "img": "img/play_emotions.png",
+          "playlist": true
+        },
+        {
+          "name": "Radio Estilo Leblon",
+          "url": "http://us4.internet-radio.com:8193/listen.pls",
+          "description": "First class soft music!",
+          "img": "img/estilo-leblon.png",
           "playlist": true
         }
       ]
@@ -51,15 +77,15 @@
         {
           "name": "Jazz Lovers",
           "url": "http://kathy.torontocast.com:3530/stream",
-          "description": "The SRG SSR jazz radio, with JAZZ, SOUL and BLUES 24/7",
+          "description": "The SRG SSR jazz radio, with JAZZ, SOUL and BLUES 24/7.",
           "img": "img/jazzlovers.png",
           "playlist": false
         },
         {
-          "name": "Radio Estilo Leblon",
-          "url": "http://us4.internet-radio.com:8193/listen.pls",
-          "description": "First class soft music!",
-          "img": "img/estilo-leblon.png",
+          "name": "I Love Smooth Jazz",
+          "url": "http://us5.internet-radio.com:8096/listen.pls",
+          "description": "Contemporary Smooth Jazz Vocals and Instrumentals 24/7 for a Global Audience.",
+          "img": "img/i-love-smooth-jazz.png",
           "playlist": true
         }
       ]
@@ -82,7 +108,7 @@
         {
           "name": "Radio Blackout",
           "url": "https://s.streampunk.cc/blackout.mp3",
-          "description": "One station against the nation",
+          "description": "One station against the nation.",
           "img": "img/radioblackout.png",
           "playlist": false
         }
