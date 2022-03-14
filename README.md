@@ -40,10 +40,11 @@ A web radio json object requires:
 Click the abidibo avatar to toggle between light and dark themes.
 
 ## License
-© 2013 Stefano Contini - MIT License (http://opensource.org/licenses/MIT). See the LICENSE file for more information.
+© 2013-2022 Stefano Contini - MIT License (http://opensource.org/licenses/MIT). See the LICENSE file for more information.
 
 ## Releases
 
+- 2022-03-14 v0.2.0
 - 2017-01-13 v0.1.2
 - 2014-12-03 v0.1.1
 - 2013-11-22 v0.1.0
