@@ -1,4 +1,9 @@
 # Changelog
+2022-03-14 New release, v0.2.0
+    FIXES
+    - python3 support
+    FEATURES
+    - new default conf radios
 
 2017-01-13 New release, v0.1.2
     FIXES
