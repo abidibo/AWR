@@ -13,7 +13,7 @@ import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
 import subprocess
-from threading import Thread
+from threading import Thread, Timer
 import re
 import json
 from xml.sax.saxutils import escape
@@ -267,6 +267,7 @@ class AWR:
     error = True
     for line in iter(self._proc.stdout.readline, ''):
       str_line = str(line.decode('utf-8')).rstrip()
+      print(str_line)
       if self._status == 'stopped':
         error = False
         break
@@ -315,12 +316,12 @@ class AWR:
     self._status = 'stopped'
     self._gui.update()
     if self._proc:
+      timer = Timer(3, self._proc.kill)
       try:
-        self._proc.communicate(b'quit\n')
-      except:
-        pass
-      sleep(1) # wait for thread to break
-      self._proc.kill()
+        timer.start()
+        stdout, stderr = self._proc.communicate(b'quit\n')
+      finally:
+        timer.cancel()
 
   """
     Displays a check internet connection message
