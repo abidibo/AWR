@@ -320,8 +320,9 @@ class AWR:
       try:
         timer.start()
         stdout, stderr = self._proc.communicate(b'quit\n')
-      finally:
         timer.cancel()
+      except:
+        pass
 
   """
     Displays a check internet connection message
