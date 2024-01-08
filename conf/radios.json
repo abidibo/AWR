@@ -23,26 +23,12 @@
           "description": "Italian no-profit web radio, all genres.",
           "img": "img/radiogibson.png",
           "playlist": true
-        },
-        {
-          "name": "Box UK",
-          "url": "http://uk7.internet-radio.com:8226/live.m3u",
-          "description": "Box UK Radio plays the best mix of then and now. We play 80's, 90's, 00's and current chart music and we are also home of 80s Thursday.",
-          "img": "img/box-uk.png",
-          "playlist": true
         }
       ]
     },
     {
       "name": "Rock&Blues",
       "radios": [
-        {
-          "name": "Classic Rock Florida HD",
-          "url": "http://us4.internet-radio.com:8258/listen.pls",
-          "description": "Selection of classic rock music.",
-          "img": "img/classic-rock-florida.png",
-          "playlist": true
-        },
         {
           "name": "XRDS.fm",
           "url": "http://us1.internet-radio.com:8321/listen.pls",
@@ -61,13 +47,6 @@
           "description": "Lounge, chillout, ambient. Perfect for relaxing.",
           "img": "img/play_emotions.png",
           "playlist": true
-        },
-        {
-          "name": "Radio Estilo Leblon",
-          "url": "http://us4.internet-radio.com:8193/listen.pls",
-          "description": "First class soft music!",
-          "img": "img/estilo-leblon.png",
-          "playlist": true
         }
       ]
     },
@@ -80,13 +59,6 @@
           "description": "The SRG SSR jazz radio, with JAZZ, SOUL and BLUES 24/7.",
           "img": "img/jazzlovers.png",
           "playlist": false
-        },
-        {
-          "name": "I Love Smooth Jazz",
-          "url": "http://us5.internet-radio.com:8096/listen.pls",
-          "description": "Contemporary Smooth Jazz Vocals and Instrumentals 24/7 for a Global Audience.",
-          "img": "img/i-love-smooth-jazz.png",
-          "playlist": true
         }
       ]
     },
@@ -95,10 +67,10 @@
       "radios": [
         {
           "name": "KEXP",
-          "url": "http://live-mp3-128.kexp.org:8000/listen.pls",
+          "url": "https://kexp-mp3-128.streamguys1.com/kexp128.mp3",
           "description": "KEXP is more than a radio station. KEXP is a dynamic arts organization that provides rich music experiences on the air, online, and on the streets.",
           "img": "img/kexp.png",
-          "playlist": true
+          "playlist": false
         }
       ]
     },
@@ -118,11 +90,11 @@
       "name": "Classical",
       "radios": [
         {
-          "name": "Venice Classic Radio Italia",
-          "url": "http://174.36.206.197:8000/listen.pls",
+          "name": "Radio 3 Classica",
+          "url": "http://icestreaming.rai.it/5.mp3",
           "description": "Webradio digitale italiana di musica classica che propone ogni giorno un repertorio di musica antica, barocca, da camera, sinfonica, lirica e contemporanea",
-          "img": "img/venice-classic.png",
-          "playlist": true
+          "img": "img/radio3-classica.png",
+          "playlist": false
         }
       ]
     },
