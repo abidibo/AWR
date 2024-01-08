@@ -96,7 +96,7 @@ class AWRGUI:
     self._playpause_button.connect('clicked', self._app.playpause_stream)
     controlbar_box.pack_start(self._playpause_button, False, False, 0)
     # onair label
-    onair_label = Gtk.Label('on air')
+    onair_label = Gtk.Label('On Air')
     controlbar_box.pack_start(onair_label, False, False, 0)
     # track label (changes dynamically)
     self._track_label = Gtk.Label('--')
