@@ -107,6 +107,13 @@
           "description": "Seconda rete radiofonica della RAI",
           "img": "img/radio2.png",
           "playlist": false
+        },
+        {
+          "name": "Radio Deejay",
+          "url": "https://streamcdnb1-4c4b867c89244861ac216426883d1ad0.msvdn.net/radiodeejay/radiodeejay/play1.m3u8",
+          "description": "Deejay.it ti sorprende, ti diverte, ti commuove. Radio, video, audio, musica e le migliori storie scelte per te e raccontate dai deejay del web",
+          "img": "img/radio-deejay.png",
+          "playlist": true
         }
       ]
     }
