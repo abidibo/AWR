@@ -9,6 +9,8 @@
   @license MIT License (http://opensource.org/licenses/MIT)
   @copyright 2013-2014 abidibo
 """
+import os
+import tempfile
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, Gdk, GObject
@@ -234,6 +236,8 @@ class AWR:
     self._proc = None
     self._status = 'stopped'
     self._gui = AWRGUI(self)
+    self._fifo_path = os.path.join(tempfile.mkdtemp(), 'fifo')
+    os.mkfifo(self._fifo_path)
 
   """
     @brief Gets the player status
@@ -249,9 +253,9 @@ class AWR:
   def stream_radio(self, widget, radio):
     self.kill_proc()
     if radio['playlist']:
-      self._proc = subprocess.Popen(["mplayer", "-slave", "-playlist", radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+      self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, "-playlist", radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     else:
-      self._proc = subprocess.Popen(["mplayer", "-slave", radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+      self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     self._status = 'init'
 
@@ -303,7 +307,9 @@ class AWR:
   def playpause_stream(self, widget):
     if self._proc:
       try:
-        self._proc.communicate(b'\npause\n')
+        fifo = os.open(self._fifo_path, os.O_WRONLY)
+        os.write(fifo, 'pause\n'.encode('utf-8'))
+        # self._proc.communicate(b'pause\n')
         self._status = 'playing' if self._status == 'paused' else 'paused'
         self._gui.update()
       except:
