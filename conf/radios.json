@@ -47,6 +47,13 @@
           "description": "Lounge, chillout, ambient. Perfect for relaxing.",
           "img": "img/play_emotions.png",
           "playlist": true
+        },
+        {
+          "name": "Ambient Sleeping Pill",
+          "url": "http://radio.stereoscenic.com/asp-h",
+          "description": "Internet radio streaming music for sleep, meditation or study; for tuning out distractions or simply relaxing; ad-free, beat-free, never too new-age or dark",
+          "img": "img/ambient-sleeping-pill.png",
+          "playlist": false
         }
       ]
     },
