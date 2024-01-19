@@ -11,13 +11,6 @@
           "playlist": false
         },
         {
-          "name": "JukeBox.66",
-          "url": "http://listen.radionomy.com/jukebox66.m3u",
-          "description": "Jukebox66 est la radio des années 50, 60 et 70. Notre programmation basée sur du rock'n'roll/blues/soul/country/folk/surf/jazz ... est dans la plus pure ambiance American Graffitti et Route 66 ! De Chuck Berry aux Stray Cats, de Hot Tuna à Stevie Ray Vaughan, Jukebox66 dynamise vos journées!",
-          "img": "img/jukebox66.png",
-          "playlist": true
-        },
-        {
           "name": "Radio Gibson",
           "url": "http://ascolta.radiogibson.net/radiogibson.m3u",
           "description": "Italian no-profit web radio, all genres.",
@@ -54,6 +47,13 @@
           "description": "Internet radio streaming music for sleep, meditation or study; for tuning out distractions or simply relaxing; ad-free, beat-free, never too new-age or dark",
           "img": "img/ambient-sleeping-pill.png",
           "playlist": false
+        },
+        {
+          "name": "Jamendo Lounge",
+          "url": "http://listen.radionomy.com/jukebox66.m3u",
+          "description": "Kicking off the night drinking cocktails with friends? Enjoying the sun at the beach bar, sipping on some cool refreshment? Play the Lounge Radio, let yourself be carried away by these delightful rhythms and immerse yourself in smooth electronic vibrations, both chilled out and rousing.",
+          "img": "img/jamendo-lounge.png",
+          "playlist": true
         }
       ]
     },
