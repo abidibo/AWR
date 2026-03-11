@@ -32,6 +32,7 @@ from time import sleep
 from os import path
 
 from agtk import MainWindow
+from station_manager import StationManager, StationManagerUI
 
 def project_path(relative_path):
     return path.abspath(path.join(path.dirname(__file__), relative_path))
@@ -51,6 +52,7 @@ class AWRGUI:
     self._app = app
     self._active_radio = None
     self._style = 'dark';
+    self._station_ui = StationManagerUI(self, app)
     # main window
     self._win = MainWindow('main_window', 'AWR', self._app.kill_proc)
     self._win.set_resizable(True)
@@ -58,9 +60,6 @@ class AWRGUI:
     if AppIndicator3:
       self._win.disconnect_by_func(self._win.destroy)
       self._win.connect("delete_event", self._on_window_delete)
-    # geometry = Gdk.Geometry()
-    # geometry.min_height = 100
-    # self._win.set_geometry_hints(None, geometry, Gdk.WindowHints.MIN_SIZE)
     # main container
     self.create_container()
     # track and controllers
@@ -179,35 +178,38 @@ class AWRGUI:
     @brief Creates the genres notebook
   """
   def create_notebook(self):
-    json_data = open(project_path('conf/radios.json'))
-    data = json.load(json_data)
-    notebook = Gtk.Notebook()
-    self._container.pack_start(notebook, False, False, 0)
+    self._notebook = Gtk.Notebook()
+    self._container.pack_start(self._notebook, True, True, 0)
+    self.rebuild_notebook()
+
+    # Add Genre button below notebook
+    add_genre_btn = Gtk.Button(label='+ Add Genre')
+    add_genre_btn.get_style_context().add_class("add-station-btn")
+    add_genre_btn.set_halign(Gtk.Align.START)
+    add_genre_btn.connect('clicked', self._station_ui.on_add_genre)
+    self._container.pack_start(add_genre_btn, False, False, 0)
+
+  """
+    @brief Rebuilds the notebook tabs from radios.json
+  """
+  def rebuild_notebook(self):
+    # remove all existing pages
+    while self._notebook.get_n_pages() > 0:
+      self._notebook.remove_page(0)
+
+    data = self._app._station_manager.load_radios()
 
     for genre in data['genres']:
-      genre_label = Gtk.Label(genre['name']);
-      genre_table = self.construct_genre_page(genre);
-      notebook.append_page(genre_table, genre_label);
+      genre_label = Gtk.Label(genre['name'])
+      genre_page = self._station_ui.construct_genre_page(genre)
+      self._notebook.append_page(genre_page, genre_label)
 
-  """
-    @brief Creates a genre page
-  """
-  def construct_genre_page(self, genre):
-    grid = Gtk.Grid(row_spacing=10, margin=10)
-    i = 0
-    for radio in genre['radios']:
-      img_button = Gtk.Button(image=Gtk.Image.new_from_file(project_path(radio['img'])))
-      img_button.get_style_context().add_class("button-img");
-      img_button.set_vexpand(False)
-      img_button.connect('clicked', self._app.stream_radio, radio)
-      label = Gtk.Label(use_markup=True, xalign=0, margin_left=5)
-      label.set_line_wrap(True)
-      label.set_markup('<b>%s</b>\n%s' % (radio['name'], radio['description']))
-      grid.attach(img_button, 0, i, 1, 1)
-      grid.attach_next_to(label, img_button, Gtk.PositionType.RIGHT, 1, 1)
-      i = i + 1
+    # Discover tab
+    discover_label = Gtk.Label('Discover')
+    discover_page = self._station_ui.construct_discover_page()
+    self._notebook.append_page(discover_page, discover_label)
 
-    return grid
+    self._notebook.show_all()
 
   """
     Creates the application footer
@@ -283,12 +285,17 @@ class AWR:
   """
   def __init__(self):
     self._proc = None
+    self._ffmpeg_proc = None
     self._status = 'stopped'
     self._volume = 50
     self._muted = False
+    self._station_manager = StationManager()
     self._gui = AWRGUI(self)
-    self._fifo_path = os.path.join(tempfile.mkdtemp(), 'fifo')
+    self._tmpdir = tempfile.mkdtemp()
+    self._fifo_path = os.path.join(self._tmpdir, 'fifo')
     os.mkfifo(self._fifo_path)
+    self._audio_fifo_path = os.path.join(self._tmpdir, 'audio_fifo')
+    os.mkfifo(self._audio_fifo_path)
     self._create_tray_indicator()
 
   """
@@ -355,15 +362,32 @@ class AWR:
   def stream_radio(self, widget, radio):
     self.kill_proc()
     self._muted = False
+    self._ffmpeg_proc = None
+    self._current_radio_name = radio.get('name', '')
     self._gui.update_mute_button(False)
-    if radio['playlist']:
-      self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, "-playlist", radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+    url = radio['url']
+    is_hls = url.endswith('.m3u8') or '/hls/' in url.lower()
+
+    if is_hls:
+      # HLS streams: ffmpeg writes continuous audio to a named pipe,
+      # mplayer reads from it as a file (slave mode stays on the command fifo)
+      self._ffmpeg_proc = subprocess.Popen(
+        ["ffmpeg", "-y", "-i", url, "-vn", "-c:a", "libmp3lame", "-b:a", "192k", "-f", "mp3", self._audio_fifo_path],
+        stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL
+      )
+      self._proc = subprocess.Popen(
+        ["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, "-cache", "2048", self._audio_fifo_path],
+        stdin=subprocess.PIPE, stdout=subprocess.PIPE
+      )
+    elif radio['playlist']:
+      self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, "-playlist", url], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     else:
-      self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
+      self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, url], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
 
     self._status = 'init'
 
-    thread = Thread(target = self.parse_stdout, )
+    thread = Thread(target = self.parse_stdout)
+    thread.daemon = True
     thread.start()
 
     self._gui.set_active_radio(widget)
@@ -372,27 +396,36 @@ class AWR:
     Parses mplayer stdout to catch the track title
   """
   def parse_stdout(self):
-    error = True
-    for line in iter(self._proc.stdout.readline, ''):
-      str_line = str(line.decode('utf-8')).rstrip()
-      print(str_line)
-      if self._status == 'stopped':
-        error = False
-        break
-      if str_line.startswith('Starting playback'):
-        self._status = 'playing'
-        GObject.timeout_add(50, self._gui.update)
-      if str_line.startswith('ICY Info:'):
-        info = str_line.split(':', 1)[1].strip()
-        attrs = dict(re.findall("(\w+)='([^']*)'", info))
-        title = attrs.get('StreamTitle', '(unknown)')
-        self._status = 'playing'
-        # fixes seg fault when updating gui from inside another thread
-        GObject.timeout_add(100, self._gui.update, '<b>%s</b>' % escape(title))
+    self._got_icy = False
+    try:
+      for line in iter(self._proc.stdout.readline, b''):
+        str_line = line.decode('utf-8', errors='replace').rstrip()
+        print(str_line)
+        if self._status == 'stopped':
+          break
+        if str_line.startswith('Starting playback'):
+          self._status = 'playing'
+          GObject.timeout_add(50, self._gui.update)
+          GObject.timeout_add(3000, self._show_radio_name_fallback)
+        if str_line.startswith('ICY Info:'):
+          self._got_icy = True
+          info = str_line.split(':', 1)[1].strip()
+          attrs = dict(re.findall("(\w+)='([^']*)'", info))
+          title = attrs.get('StreamTitle', '(unknown)')
+          self._status = 'playing'
+          # fixes seg fault when updating gui from inside another thread
+          GObject.timeout_add(100, self._gui.update, '<b>%s</b>' % escape(title))
+    except (ValueError, OSError):
+      pass  # pipe closed by stop/kill
 
-    # if stdout stops without pressing the stop button then an error occurred
-    if error:
+    # if stdout ends without user stopping, a stream error occurred
+    if self._status != 'stopped':
       GObject.idle_add(self.display_info)
+
+  def _show_radio_name_fallback(self):
+    if self._status == 'playing' and not self._got_icy and self._current_radio_name:
+      GObject.idle_add(self._gui.update, '<b>%s</b>' % escape(self._current_radio_name))
+
 
   """
     @brief Stops the stream
@@ -400,8 +433,8 @@ class AWR:
   """
   def stop_stream(self, widget):
     if self._proc:
-      self._proc.communicate(b'stop\n')
       self._status = 'stopped'
+      self._proc.communicate(b'stop\n')
       self._gui.update()
 
   """
@@ -462,6 +495,13 @@ class AWR:
         timer.cancel()
       except:
         pass
+    if getattr(self, '_ffmpeg_proc', None):
+      try:
+        self._ffmpeg_proc.kill()
+        self._ffmpeg_proc.wait()
+      except:
+        pass
+      self._ffmpeg_proc = None
 
   """
     Displays a check internet connection message

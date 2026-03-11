@@ -57,3 +57,31 @@ notebook stack {
   font-size: 16px;
   padding: 2px 4px;
 }
+.manage-btn {
+  background: transparent;
+  border: 1px solid @lc_color;
+  padding: 4px 8px;
+  min-width: 28px;
+}
+.manage-btn:hover {
+  background: @hover_color;
+  color: #fff;
+}
+.add-station-btn {
+  background: @btn_color;
+  color: #fff;
+  padding: 4px 12px;
+}
+.delete-btn {
+  background: transparent;
+  border: 1px solid @lc_color;
+  padding: 4px 12px;
+}
+.delete-btn:hover {
+  background: #cc3333;
+  color: #fff;
+}
+.discover-row {
+  padding: 6px;
+  border-bottom: 1px solid @lc_color;
+}
