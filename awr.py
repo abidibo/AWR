@@ -56,10 +56,6 @@ class AWRGUI:
     # main window
     self._win = MainWindow('main_window', 'AWR', self._app.kill_proc)
     self._win.set_resizable(True)
-    # override close to hide to tray if indicator is available
-    if AppIndicator3:
-      self._win.disconnect_by_func(self._win.destroy)
-      self._win.connect("delete_event", self._on_window_delete)
     # main container
     self.create_container()
     # track and controllers
