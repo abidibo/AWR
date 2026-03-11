@@ -40,3 +40,20 @@ notebook stack {
 .evidence {
   color: @evidence_color;
 }
+.volume-scale trough {
+  background: @lc_color;
+  min-height: 6px;
+  border-radius: 3px;
+}
+.volume-scale slider {
+  background: @btn_color;
+  min-width: 14px;
+  min-height: 14px;
+  border-radius: 7px;
+}
+.volume-button {
+  background: transparent;
+  border: none;
+  font-size: 16px;
+  padding: 2px 4px;
+}

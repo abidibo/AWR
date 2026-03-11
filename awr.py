@@ -101,7 +101,21 @@ class AWRGUI:
     # track label (changes dynamically)
     self._track_label = Gtk.Label('--')
     self._track_label.get_style_context().add_class("evidence");
-    controlbar_box.pack_start(self._track_label, False, False, 0)
+    controlbar_box.pack_start(self._track_label, True, False, 0)
+
+    # volume controls (right side)
+    self._mute_button = Gtk.Button(label=u'\U0001F50A')
+    self._mute_button.get_style_context().add_class("volume-button")
+    self._mute_button.connect('clicked', self._app.toggle_mute)
+    controlbar_box.pack_end(self._mute_button, False, False, 0)
+
+    self._volume_scale = Gtk.Scale.new_with_range(Gtk.Orientation.HORIZONTAL, 0, 100, 5)
+    self._volume_scale.set_value(50)
+    self._volume_scale.set_draw_value(False)
+    self._volume_scale.set_size_request(120, -1)
+    self._volume_scale.get_style_context().add_class("volume-scale")
+    self._volume_scale.connect('value-changed', self._app.set_volume)
+    controlbar_box.pack_end(self._volume_scale, False, False, 0)
 
     self.update()
 
@@ -211,6 +225,12 @@ class AWRGUI:
       self._active_radio = None
 
   """
+    @brief Updates the mute button icon
+  """
+  def update_mute_button(self, muted):
+    self._mute_button.set_label(u'\U0001F507' if muted else u'\U0001F50A')
+
+  """
     @brief Updates the current track
   """
   def update_track(self, title):
@@ -235,6 +255,8 @@ class AWR:
   def __init__(self):
     self._proc = None
     self._status = 'stopped'
+    self._volume = 50
+    self._muted = False
     self._gui = AWRGUI(self)
     self._fifo_path = os.path.join(tempfile.mkdtemp(), 'fifo')
     os.mkfifo(self._fifo_path)
@@ -252,6 +274,8 @@ class AWR:
   """
   def stream_radio(self, widget, radio):
     self.kill_proc()
+    self._muted = False
+    self._gui.update_mute_button(False)
     if radio['playlist']:
       self._proc = subprocess.Popen(["mplayer", "-slave", "-input", "file=%s" % self._fifo_path, "-playlist", radio['url']], stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     else:
@@ -312,6 +336,35 @@ class AWR:
         # self._proc.communicate(b'pause\n')
         self._status = 'playing' if self._status == 'paused' else 'paused'
         self._gui.update()
+      except:
+        pass
+
+  """
+    @brief Sets the volume
+    @param GtkWidget widget the volume scale widget
+  """
+  def set_volume(self, widget):
+    self._volume = int(widget.get_value())
+    if self._proc:
+      try:
+        fifo = os.open(self._fifo_path, os.O_WRONLY)
+        os.write(fifo, ('volume %d 1\n' % self._volume).encode('utf-8'))
+        os.close(fifo)
+      except:
+        pass
+
+  """
+    @brief Toggles mute on/off
+    @param GtkWidget widget the mute button widget
+  """
+  def toggle_mute(self, widget):
+    if self._proc:
+      try:
+        fifo = os.open(self._fifo_path, os.O_WRONLY)
+        os.write(fifo, b'mute\n')
+        os.close(fifo)
+        self._muted = not self._muted
+        self._gui.update_mute_button(self._muted)
       except:
         pass
 
