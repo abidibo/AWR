@@ -88,11 +88,11 @@ class AWRGUI:
     controlbar_box.get_style_context().add_class("ctrlbar");
     self._container.pack_start(controlbar_box, False, False, 0)
     # stop button
-    self._stop_button = Gtk.Button(stock=Gtk.STOCK_MEDIA_STOP)
+    self._stop_button = self._create_icon_button('media-playback-stop', 'Stop')
     self._stop_button.connect('clicked', self._app.stop_stream)
     controlbar_box.pack_start(self._stop_button, False, False, 0)
     # playpause button
-    self._playpause_button = Gtk.Button(stock=Gtk.STOCK_MEDIA_PAUSE)
+    self._playpause_button = self._create_icon_button('media-playback-pause', 'Pause')
     self._playpause_button.connect('clicked', self._app.playpause_stream)
     controlbar_box.pack_start(self._playpause_button, False, False, 0)
     # onair label
@@ -104,7 +104,7 @@ class AWRGUI:
     controlbar_box.pack_start(self._track_label, True, False, 0)
 
     # volume controls (right side)
-    self._mute_button = Gtk.Button(label=u'\U0001F50A')
+    self._mute_button = self._create_icon_button('audio-volume-high', None)
     self._mute_button.get_style_context().add_class("volume-button")
     self._mute_button.connect('clicked', self._app.toggle_mute)
     controlbar_box.pack_end(self._mute_button, False, False, 0)
@@ -118,6 +118,31 @@ class AWRGUI:
     controlbar_box.pack_end(self._volume_scale, False, False, 0)
 
     self.update()
+
+  def _create_icon_button(self, icon_name, label_text):
+    button = Gtk.Button()
+    box = Gtk.Box(spacing=4)
+    image = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
+    box.pack_start(image, False, False, 0)
+    if label_text:
+      label = Gtk.Label(label_text)
+      box.pack_start(label, False, False, 0)
+    button.add(box)
+    button.show_all()
+    return button
+
+  def _set_icon_button(self, button, icon_name, label_text):
+    child = button.get_child()
+    if child:
+      button.remove(child)
+    box = Gtk.Box(spacing=4)
+    image = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
+    box.pack_start(image, False, False, 0)
+    if label_text:
+      label = Gtk.Label(label_text)
+      box.pack_start(label, False, False, 0)
+    button.add(box)
+    button.show_all()
 
   """
     @brief Updates the controllers
@@ -147,14 +172,14 @@ class AWRGUI:
   def update_playpause_button(self, status):
     if status == 'stopped' or status == 'init':
       self._playpause_button.set_sensitive(False)
-      self._playpause_button.set_label(Gtk.STOCK_MEDIA_PAUSE)
+      self._set_icon_button(self._playpause_button, 'media-playback-pause', 'Pause')
       self._playpause_button.get_style_context().add_class("button-disabled");
     elif status == 'playing':
       self._playpause_button.set_sensitive(True)
-      self._playpause_button.set_label(Gtk.STOCK_MEDIA_PAUSE)
+      self._set_icon_button(self._playpause_button, 'media-playback-pause', 'Pause')
       self._playpause_button.get_style_context().remove_class("button-disabled");
     else:
-      self._playpause_button.set_label(Gtk.STOCK_MEDIA_PLAY)
+      self._set_icon_button(self._playpause_button, 'media-playback-start', 'Play')
 
   def update_track_label(self, status, track_title):
     if status == 'stopped':
@@ -231,7 +256,8 @@ class AWRGUI:
     @brief Updates the mute button icon
   """
   def update_mute_button(self, muted):
-    self._mute_button.set_label(u'\U0001F507' if muted else u'\U0001F50A')
+    icon = 'audio-volume-muted' if muted else 'audio-volume-high'
+    self._set_icon_button(self._mute_button, icon, None)
 
   """
     @brief Updates the current track
