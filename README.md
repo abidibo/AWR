@@ -1,4 +1,5 @@
 # AWR
+
 abidibo's web radios software
 
 AWR is a software which provides an interface to control web radios streaming with mplayer.
@@ -18,6 +19,7 @@ AWR was developed using the pygtk3 technology, no glade was armed in the making 
 - ffmpeg (for HLS stream support)
 
 ## Installation
+
 Just download the project and run awr.py.
 
 You may use git
@@ -31,6 +33,7 @@ Or simply download a tarball or a zip file from github, uncompress it in your HD
 ## Usage
 
 ### Managing stations in the app
+
 You can manage your stations and genres directly from the interface:
 
 - **Add/edit/delete stations** using the buttons next to each station
@@ -38,6 +41,7 @@ You can manage your stations and genres directly from the interface:
 - **Discover new stations** via the Discover tab: search by name or country, preview stations, and add them to your collection
 
 ### Manual configuration
+
 You can also configure stations manually. The configuration file is the *radios.json* file inside the *conf* folder. Open it and notice that all web radios are divided by genres. Each genre occupies a notebook page in the interface. Add here your genres or web radios.
 A web radio json object requires:
 
@@ -48,15 +52,10 @@ A web radio json object requires:
 - playlist: whether or not the playlist option is required for mplayer to stream this url
 
 ### Tips
+
 - Click the abidibo avatar to toggle between light and dark themes.
 - The system tray icon provides quick access to show/hide, play/pause, stop and quit.
 
 ## License
-© 2013-2026 Stefano Contini - MIT License (http://opensource.org/licenses/MIT). See the LICENSE file for more information.
 
-## Releases
-
-- 2022-03-14 v0.2.0
-- 2017-01-13 v0.1.2
-- 2014-12-03 v0.1.1
-- 2013-11-22 v0.1.0
+© 2013-2026 Stefano Contini - MIT License (<http://opensource.org/licenses/MIT>). See the LICENSE file for more information.
