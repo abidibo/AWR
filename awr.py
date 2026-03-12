@@ -13,15 +13,6 @@ import os
 import tempfile
 import gi
 gi.require_version('Gtk', '3.0')
-try:
-  gi.require_version('AyatanaAppIndicator3', '0.1')
-  from gi.repository import AyatanaAppIndicator3 as AppIndicator3
-except (ValueError, ImportError):
-  try:
-    gi.require_version('AppIndicator3', '0.1')
-    from gi.repository import AppIndicator3
-  except (ValueError, ImportError):
-    AppIndicator3 = None
 from gi.repository import Gtk, Gdk, GObject
 import subprocess
 from threading import Thread, Timer
@@ -33,6 +24,7 @@ from os import path
 
 from agtk import MainWindow
 from station_manager import StationManager, StationManagerUI
+from tray import TrayIndicator
 
 def project_path(relative_path):
     return path.abspath(path.join(path.dirname(__file__), relative_path))
@@ -292,57 +284,7 @@ class AWR:
     os.mkfifo(self._fifo_path)
     self._audio_fifo_path = os.path.join(self._tmpdir, 'audio_fifo')
     os.mkfifo(self._audio_fifo_path)
-    self._create_tray_indicator()
-
-  """
-    @brief Creates the system tray indicator with context menu
-  """
-  def _create_tray_indicator(self):
-    if not AppIndicator3:
-      return
-    self._indicator = AppIndicator3.Indicator.new(
-      'awr-radio',
-      project_path('awr.png'),
-      AppIndicator3.IndicatorCategory.APPLICATION_STATUS
-    )
-    self._indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
-    self._indicator.set_menu(self._build_tray_menu())
-
-  """
-    @brief Builds the context menu for the tray indicator
-  """
-  def _build_tray_menu(self):
-    menu = Gtk.Menu()
-
-    self._tray_show_item = Gtk.MenuItem(label='Show/Hide')
-    self._tray_show_item.connect('activate', lambda _: self._gui.toggle_window())
-    menu.append(self._tray_show_item)
-
-    menu.append(Gtk.SeparatorMenuItem())
-
-    self._tray_playpause_item = Gtk.MenuItem(label='Play/Pause')
-    self._tray_playpause_item.connect('activate', self.playpause_stream)
-    menu.append(self._tray_playpause_item)
-
-    self._tray_stop_item = Gtk.MenuItem(label='Stop')
-    self._tray_stop_item.connect('activate', self.stop_stream)
-    menu.append(self._tray_stop_item)
-
-    menu.append(Gtk.SeparatorMenuItem())
-
-    quit_item = Gtk.MenuItem(label='Quit')
-    quit_item.connect('activate', self._quit)
-    menu.append(quit_item)
-
-    menu.show_all()
-    return menu
-
-  """
-    @brief Quits the application
-  """
-  def _quit(self, widget):
-    self.kill_proc()
-    Gtk.main_quit()
+    self._tray = TrayIndicator(self, project_path('awr.png'))
 
   """
     @brief Gets the player status

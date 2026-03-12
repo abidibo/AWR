@@ -6,8 +6,8 @@
 @define-color hc_color #e7e7e7;
 @define-color lc_color #666;
 @define-color txt_color #eee;
-@define-color hover_color #aa0000;
-@define-color btn_color #aa0000;
+@define-color hover_color #b33c3c;
+@define-color btn_color #993333;
 @define-color notebook_color #444;
 
 * {
@@ -73,6 +73,9 @@ notebook stack {
 }
 .delete-btn:hover {
   background: #cc3333;
+}
+.station-name {
+  color: #5ac8c8;
 }
 .discover-row {
   padding: 6px;

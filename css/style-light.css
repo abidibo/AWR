@@ -14,6 +14,11 @@
 * {
   color: @txt_color;
 }
+entry {
+  background: #fff;
+  color: @txt_color;
+  border: 1px solid #ccc;
+}
 #main_window {
   /*background: -gtk-gradient(linear, center top, center bottom, color-stop(0, darker(@bg_color)), color-stop(0.05, @bg_color), color-stop(0.95, @bg_color), color-stop(1, darker(@bg_color)));*/
   background: -gtk-gradient(radial, center center, 0, center center, 1, from(lighter(@bg_color)), to(shade(@bg_color, 0.7)) );
@@ -36,6 +41,9 @@ button {
 notebook header,
 notebook stack {
   background: @notebook_color;
+}
+notebook tab:hover {
+  background: #ddd;
 }
 .evidence {
   color: @evidence_color;
@@ -80,6 +88,9 @@ notebook stack {
 .delete-btn:hover {
   background: #cc3333;
   color: #fff;
+}
+.station-name {
+  color: #00897b;
 }
 .discover-row {
   padding: 6px;
