@@ -196,7 +196,7 @@ class AWRGUI:
     self.rebuild_notebook()
 
     # Add Genre button below notebook
-    add_genre_btn = Gtk.Button(label='+ Add Genre')
+    add_genre_btn = self._create_icon_button('list-add', 'Add Genre')
     add_genre_btn.get_style_context().add_class("add-station-btn")
     add_genre_btn.set_halign(Gtk.Align.START)
     add_genre_btn.connect('clicked', self._station_ui.on_add_genre)

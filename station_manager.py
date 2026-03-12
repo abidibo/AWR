@@ -76,6 +76,18 @@ class StationManagerUI:
     self._app = app
     self._manager = app._station_manager
 
+  def _icon_button(self, icon_name, label_text):
+    button = Gtk.Button()
+    box = Gtk.Box(spacing=4)
+    image = Gtk.Image.new_from_icon_name(icon_name, Gtk.IconSize.BUTTON)
+    box.pack_start(image, False, False, 0)
+    if label_text:
+      label = Gtk.Label(label_text)
+      box.pack_start(label, False, False, 0)
+    button.add(box)
+    button.show_all()
+    return button
+
   # ---------------------------------------------------------------------------
   # Genre page construction
   # ---------------------------------------------------------------------------
@@ -85,7 +97,7 @@ class StationManagerUI:
 
     # genre management bar
     hbox_top = Gtk.Box(spacing=5)
-    del_genre_btn = Gtk.Button(label='Delete Genre')
+    del_genre_btn = self._icon_button('edit-delete', 'Delete Genre')
     del_genre_btn.get_style_context().add_class("delete-btn")
     del_genre_btn.connect('clicked', self._on_delete_genre, genre['name'])
     hbox_top.pack_end(del_genre_btn, False, False, 0)
@@ -113,19 +125,19 @@ class StationManagerUI:
       desc_label.set_max_width_chars(50)
       info_box.pack_start(desc_label, False, False, 0)
 
-      play_btn = Gtk.Button(label='Play')
+      play_btn = self._icon_button('media-playback-start', 'Play')
       play_btn.set_tooltip_text('Play station')
       play_btn.get_style_context().add_class("manage-btn")
       play_btn.set_valign(Gtk.Align.CENTER)
       play_btn.connect('clicked', self._app.stream_radio, radio)
 
-      edit_btn = Gtk.Button(label='Edit')
+      edit_btn = self._icon_button('document-edit', 'Edit')
       edit_btn.set_tooltip_text('Edit station')
       edit_btn.get_style_context().add_class("manage-btn")
       edit_btn.set_valign(Gtk.Align.CENTER)
       edit_btn.connect('clicked', self._on_edit_station, genre['name'], radio)
 
-      del_btn = Gtk.Button(label='Delete')
+      del_btn = self._icon_button('edit-delete', 'Delete')
       del_btn.set_tooltip_text('Delete station')
       del_btn.get_style_context().add_class("manage-btn")
       del_btn.set_valign(Gtk.Align.CENTER)
@@ -405,7 +417,7 @@ class StationManagerUI:
     self._country_entry.set_width_chars(22)
     search_box.pack_start(self._country_entry, False, False, 0)
 
-    search_btn = Gtk.Button(label='Search')
+    search_btn = self._icon_button('edit-find', 'Search')
     search_btn.connect('clicked', self._on_discover_search)
     search_box.pack_start(search_btn, False, False, 0)
 
@@ -427,10 +439,10 @@ class StationManagerUI:
     self._discover_page = 0
     page_box = Gtk.Box(spacing=10)
     page_box.set_halign(Gtk.Align.CENTER)
-    self._prev_btn = Gtk.Button(label='< Prev')
+    self._prev_btn = self._icon_button('go-previous', 'Prev')
     self._prev_btn.connect('clicked', self._on_discover_prev)
     self._prev_btn.set_sensitive(False)
-    self._next_btn = Gtk.Button(label='Next >')
+    self._next_btn = self._icon_button('go-next', 'Next')
     self._next_btn.connect('clicked', self._on_discover_next)
     self._next_btn.set_sensitive(False)
     self._page_label = Gtk.Label('')
@@ -545,14 +557,14 @@ class StationManagerUI:
       row.pack_start(info_box, True, True, 0)
 
       # preview (play) button
-      play_btn = Gtk.Button(label='Play')
+      play_btn = self._icon_button('media-playback-start', 'Play')
       play_btn.set_tooltip_text('Preview this station')
       play_btn.get_style_context().add_class("manage-btn")
       play_btn.connect('clicked', self._on_discover_preview, station)
       row.pack_start(play_btn, False, False, 0)
 
       # add button
-      add_btn = Gtk.Button(label='Add')
+      add_btn = self._icon_button('list-add', 'Add')
       add_btn.set_tooltip_text('Add to your radios')
       add_btn.get_style_context().add_class("manage-btn")
       add_btn.connect('clicked', self._on_discover_add, station)

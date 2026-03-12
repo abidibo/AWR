@@ -56,8 +56,9 @@ notebook stack {
 .manage-btn {
   background: transparent;
   border: 1px solid @lc_color;
-  padding: 4px 8px;
+  padding: 4px 12px;
   min-width: 28px;
+  margin-left: 4px;
 }
 .manage-btn:hover {
   background: @hover_color;
